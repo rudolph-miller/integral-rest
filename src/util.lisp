@@ -1,14 +1,13 @@
 (in-package :cl-user)
 (defpackage integral-rest.util
   (:use :cl
-   :integral))
+        :integral))
 (in-package :integral-rest.util)
 
 (syntax:use-syntax :annot)
 
 (defun slot-initarg (slot)
   (car (c2mop:slot-definition-initargs slot)))
-
 
 @export
 (defgeneric table-initargs (table)
