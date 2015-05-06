@@ -17,10 +17,10 @@
   :components ((:module "t"
                 :components
                 ((:file "init")
-                 (:test-file "integral-rest")
                  (:test-file "util")
                  (:test-file "api")
-                 (:test-file "route"))))
+                 (:test-file "route")
+                 (:test-file "integral-rest"))))
 
   :defsystem-depends-on (:prove-asdf)
   :perform (test-op :after (op c)

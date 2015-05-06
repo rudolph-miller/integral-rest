@@ -18,7 +18,8 @@
   :version "0.1"
   :author "Rudolph-Miller"
   :license "MIT"
-  :depends-on (:integral
+  :depends-on (:alexandria
+               :integral
                :ningle
                :closer-mop
                :jonathan
