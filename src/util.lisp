@@ -19,3 +19,13 @@
           for initarg = (slot-initarg slot)
           when initarg
             collecting initarg)))
+
+@export
+(defgeneric singular-name-of (table)
+  (:method ((table <dao-table-class>))
+    (string-downcase (class-name table))))
+
+@export
+(defgeneric plural-name-of (table)
+  (:method ((table <dao-table-class>))
+    (cl-inflector:plural-of (singular-name-of table))))

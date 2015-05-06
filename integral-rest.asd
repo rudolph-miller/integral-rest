@@ -21,7 +21,8 @@
   :depends-on (:integral
                :ningle
                :closer-mop
-               :jonathan)
+               :jonathan
+               :cl-inflector)
   :components ((:module "src"
                 :components
                 ((:file "integral-rest")
