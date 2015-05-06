@@ -25,7 +25,7 @@
                :cl-inflector)
   :components ((:module "src"
                 :components
-                ((:file "integral-rest")
+                ((:file "integral-rest" :depends-on ("route" "api" "util"))
                  (:file "route" :depends-on ("api" "util"))
                  (:file "api" :depends-on ("util"))
                  (:file "util"))))

@@ -35,9 +35,10 @@
       "/api/users/:id"
       "with one primary-key.")
 
-  (is (resource-path (find-class 'sample))
-      "/api/samples/:id-:name"
-      "with more than one primary-keys."))
+  (let ((*api-conjunctive-string* "/"))
+    (is (resource-path (find-class 'sample))
+        "/api/samples/:id/:name"
+        "with more than one primary-keys.")))
 
 (subtest "resources-action"
   (with-init-users

@@ -16,7 +16,7 @@
 (defvar *api-prefix* "api")
 
 @export
-(defvar *api-conjunctive-string* "-")
+(defvar *api-conjunctive-string* "/")
 
 @export
 (defvar *params-case-insensitive-p* t)
