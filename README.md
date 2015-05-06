@@ -1,5 +1,7 @@
 # Integral-Rest - REST APIs for Integral DAO Table.
 
+[![Build Status](https://travis-ci.org/Rudolph-Miller/integral-rest.svg)](https://travis-ci.org/Rudolph-Miller/integral-rest)
+
 ## Usage
 
 ## Installation
