@@ -6,6 +6,7 @@
 
 (syntax:use-syntax :annot)
 
+@export
 (defun slot-initarg (slot)
   (car (c2mop:slot-definition-initargs slot)))
 
