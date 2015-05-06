@@ -4,7 +4,10 @@
         :integral
         :ningle
         :jonathan
-        :integral-rest.util))
+        :integral-rest.util
+        :integral-rest.api)
+  (:import-from :integral.table
+                :table-primary-key))
 (in-package :integral-rest.route)
 
 (syntax:use-syntax :annot)
@@ -13,8 +16,59 @@
 (defvar *api-prefix* "api")
 
 @export
+(defvar *params-case-insensitive-p* t)
+
+(defun get-value (key alist)
+  (flet ((sub (key &key (test #'equal))
+           (cdr (assoc key alist :test test))))
+    (or (sub key)
+        (when *params-case-insensitive-p*
+          (sub key :test #'string-equal)))))
+
+@export
 (defgeneric api-path (table)
   (:method ((table <dao-table-class>))
-    (format nil "/~{~a~^/~}" (append (when *api-prefix*
-                                       (list *api-prefix*))
-                                     (list (plural-name-of table))))))
+    (format nil "/~{~a~^/~}"
+            (append (when *api-prefix*
+                      (list *api-prefix*))
+                    (list (plural-name-of table))))))
+
+@export
+(defgeneric resources-action (table method)
+  (:method ((table <dao-table-class>) (method (eql :get)))
+    (declare (ignore method))
+    (lambda (params)
+      (declare (ignore params))
+      (resources table :get))))
+
+(defun pk-action (table method)
+    (let ((primary-key-names (mapcar #'symbol-name (table-primary-key table))))
+      (lambda (params)
+        (apply #'resource table method
+               (loop for name in primary-key-names
+                     collecting (get-value name params))))))
+
+(defun kv-action (table method)
+    (let ((slots (c2mop:class-direct-slots table)))
+      (lambda (params)
+        (apply #'resource table method
+               (loop for slot in slots
+                     for initarg = (slot-initarg slot)
+                     for name = (c2mop:slot-definition-name slot)
+                     for value = (get-value name params)
+                     when value
+                       nconc (list initarg value))))))
+
+@export
+(defgeneric resource-action (table method)
+  (:method ((table <dao-table-class>) (method (eql :get)))
+    (pk-action table method))
+
+  (:method ((table <dao-table-class>) (method (eql :post)))
+    (kv-action table method))
+
+  (:method ((table <dao-table-class>) (method (eql :put)))
+    (kv-action table method))
+
+  (:method ((table <dao-table-class>) (method (eql :delete)))
+    (pk-action table method)))

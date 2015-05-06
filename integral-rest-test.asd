@@ -16,7 +16,8 @@
                :integral)
   :components ((:module "t"
                 :components
-                ((:test-file "integral-rest")
+                ((:file "init")
+                 (:test-file "integral-rest")
                  (:test-file "util")
                  (:test-file "api")
                  (:test-file "route"))))
