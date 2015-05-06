@@ -25,6 +25,7 @@
   :components ((:module "src"
                 :components
                 ((:file "integral-rest")
+                 (:file "route" :depends-on ("api" "util"))
                  (:file "api" :depends-on ("util"))
                  (:file "util"))))
   :description "REST APIs for Integral DAO Table."
