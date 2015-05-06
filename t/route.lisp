@@ -7,6 +7,12 @@
         :integral-rest.route))
 (in-package :integral-rest-test.route)
 
+(defclass sample ()
+  ((id :initarg :id)
+   (name :initarg :name))
+  (:metaclass <dao-table-class>)
+  (:primary-key (id name)))
+
 (plan nil)
 
 (subtest "api-path"
@@ -18,6 +24,20 @@
     (is (api-path *user-table*)
         "/users"
         "without *api-prefix*.")))
+
+(subtest "resources-path"
+  (is (resources-path *user-table*)
+      "/api/users"
+      "can return the valid path."))
+
+(subtest "resource-path"
+  (is (resource-path *user-table*)
+      "/api/users/:id"
+      "with one primary-key.")
+
+  (is (resource-path (find-class 'sample))
+      "/api/samples/:id-:name"
+      "with more than one primary-keys."))
 
 (subtest "resources-action"
   (with-init-users
@@ -33,7 +53,6 @@
           (is (find-dao 'user 2)
               user2
               "can return the valid lambda."))))))
-
 
 (subtest "resource-action"
   (with-init-users

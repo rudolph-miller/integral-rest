@@ -16,6 +16,9 @@
 (defvar *api-prefix* "api")
 
 @export
+(defvar *api-conjunctive-string* "-")
+
+@export
 (defvar *params-case-insensitive-p* t)
 
 (defun get-value (key alist)
@@ -33,23 +36,43 @@
                       (list *api-prefix*))
                     (list (plural-name-of table))))))
 
+@export
+(defgeneric resources-path (table)
+  (:method ((table <dao-table-class>))
+    (api-path table)))
+
+@export
+(defgeneric resource-path (table)
+  (:method ((table <dao-table-class>))
+    (let ((primary-key-slots
+            (loop with primary-key-names = (table-primary-key table)
+                  for slot in (c2mop:class-direct-slots table)
+                  for name = (c2mop:slot-definition-name slot)
+                  when (member name primary-key-names)
+                    collecting slot)))
+      (format nil
+              (format nil "~a/~~{~~a~~^~a~~}" (api-path table) *api-conjunctive-string*)
+              (mapcar #'(lambda (slot)
+                          (format nil ":~(~a~)" (slot-initarg slot)))
+                      primary-key-slots)))))
+
 (defun pk-action (fn table method)
-    (let ((primary-key-names (mapcar #'symbol-name (table-primary-key table))))
-      (lambda (params)
-        (apply fn table method
-               (loop for name in primary-key-names
-                     collecting (get-value name params))))))
+  (let ((primary-key-names (mapcar #'symbol-name (table-primary-key table))))
+    (lambda (params)
+      (apply fn table method
+             (loop for name in primary-key-names
+                   collecting (get-value name params))))))
 
 (defun kv-action (fn table method)
-    (let ((slots (c2mop:class-direct-slots table)))
-      (lambda (params)
-        (apply fn table method
-               (loop for slot in slots
-                     for initarg = (slot-initarg slot)
-                     for name = (c2mop:slot-definition-name slot)
-                     for value = (get-value name params)
-                     when value
-                       nconc (list initarg value))))))
+  (let ((slots (c2mop:class-direct-slots table)))
+    (lambda (params)
+      (apply fn table method
+             (loop for slot in slots
+                   for initarg = (slot-initarg slot)
+                   for name = (c2mop:slot-definition-name slot)
+                   for value = (get-value name params)
+                   when value
+                     nconc (list initarg value))))))
 
 @export
 (defgeneric resources-action (table method)
