@@ -25,7 +25,15 @@
       (subtest ":get"
         (is (funcall (resources-action *user-table* :get) nil)
             (list user)
-            "can return the valid lambda.")))))
+            "can return the valid lambda."))
+
+      (subtest ":post"
+        (let ((user2 (funcall (resources-action *user-table* :post)
+                              '(("name" . "Miller")))))
+          (is (find-dao 'user 2)
+              user2
+              "can return the valid lambda."))))))
+
 
 (subtest "resource-action"
   (with-init-users
@@ -35,13 +43,6 @@
                      '(("id" . 1)))
             user
             "can return the valid lambda."))
-
-      (subtest ":post"
-        (let ((user2 (funcall (resource-action *user-table* :post)
-                              '(("name" . "Miller")))))
-          (is (find-dao 'user 2)
-              user2
-              "can return the valid lambda.")))
 
       (subtest ":put"
         (funcall (resource-action *user-table* :put)

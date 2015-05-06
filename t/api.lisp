@@ -15,7 +15,12 @@
       (subtest ":get"
         (is (resources *user-table* :get)
             (list user)
-            "can return the valid list.")))))
+            "can return the valid list."))
+
+      (subtest ":post"
+        (resources *user-table* :post :name "Miller")
+        (ok (resources *user-table* :get 2)
+            "can create the object.")))))
 
 (subtest "resource"
   (with-init-users
@@ -24,11 +29,6 @@
         (is (resource *user-table* :get 1)
             user
             "can return the object."))
-
-      (subtest ":post"
-        (resource *user-table* :post :name "Miller")
-        (ok (resource *user-table* :get 2)
-            "can create the object."))
 
       (subtest ":put"
         (resource *user-table* :put :id 1 :name "Tom")

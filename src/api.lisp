@@ -14,17 +14,17 @@
 (defgeneric resources (model method &rest args)
   (:method ((table <dao-table-class>) (method (eql :get)) &rest args)
     (declare (ignore method args))
-    (select-dao table)))
+    (select-dao table))
+
+  (:method ((table <dao-table-class>) (method (eql :post)) &rest args)
+    (declare (ignore method))
+    (apply #'create-dao table args)))
 
 @export
 (defgeneric resource (model method &rest args)
   (:method ((table <dao-table-class>) (method (eql :get)) &rest args)
     (declare (ignore method))
     (apply #'find-dao table args))
-
-  (:method ((table <dao-table-class>) (method (eql :post)) &rest args)
-    (declare (ignore method))
-    (apply #'create-dao table args))
 
   (:method ((table <dao-table-class>) (method (eql :put)) &rest args)
     (multiple-value-bind (primary-values update-kvs)
