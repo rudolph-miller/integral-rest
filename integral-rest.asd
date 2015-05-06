@@ -19,10 +19,13 @@
   :author "Rudolph-Miller"
   :license "MIT"
   :depends-on (:integral
-               :closer-mop)
+               :ningle
+               :closer-mop
+               :jonathan)
   :components ((:module "src"
                 :components
                 ((:file "integral-rest")
+                 (:file "api" :depends-on ("util"))
                  (:file "util"))))
   :description "REST APIs for Integral DAO Table."
   :long-description

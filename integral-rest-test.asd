@@ -17,7 +17,8 @@
   :components ((:module "t"
                 :components
                 ((:test-file "integral-rest")
-                 (:test-file "util"))))
+                 (:test-file "util")
+                 (:test-file "api"))))
 
   :defsystem-depends-on (:prove-asdf)
   :perform (test-op :after (op c)
