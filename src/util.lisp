@@ -38,10 +38,12 @@
   (with-object
     (loop for slot in (c2mop:class-direct-slots (class-of obj))
           for name = (c2mop:slot-definition-name slot)
+          for type = (c2mop:slot-definition-type slot)
           for key = (symbol-name name)
           when (and (not (equal key "%SYNCED"))
                     (slot-boundp obj name))
             do (write-key-value (or (when *convert-intgral-slot-name-into-downcase*
                                       (string-downcase key))
                                     key)
-                                (slot-value obj name)))))
+                                (or (slot-value obj name)
+                                    (and (not (eql type 'cons)) :null))))))
