@@ -59,20 +59,22 @@
 (defun pk-action (fn table method)
   (let ((primary-key-names (mapcar #'symbol-name (table-primary-key table))))
     (lambda (params)
-      (apply fn table method
-             (loop for name in primary-key-names
-                   collecting (get-value name params))))))
+      (to-json
+       (apply fn table method
+              (loop for name in primary-key-names
+                    collecting (get-value name params)))))))
 
 (defun kv-action (fn table method)
   (let ((slots (c2mop:class-direct-slots table)))
     (lambda (params)
-      (apply fn table method
-             (loop for slot in slots
-                   for initarg = (slot-initarg slot)
-                   for name = (c2mop:slot-definition-name slot)
-                   for value = (get-value name params)
-                   when value
-                     nconc (list initarg value))))))
+      (to-json
+       (apply fn table method
+              (loop for slot in slots
+                    for initarg = (slot-initarg slot)
+                    for name = (c2mop:slot-definition-name slot)
+                    for value = (get-value name params)
+                    when value
+                      nconc (list initarg value)))))))
 
 @export
 (defgeneric resources-action (table method)

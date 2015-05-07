@@ -6,6 +6,7 @@
   (:import-from :alexandria
                 :symbolicate)
   (:import-from :integral-rest.util
+                :*convert-intgral-slot-name-into-downcase*
                 :singular-name-of
                 :plural-name-of)
   (:import-from :integral-rest.api
@@ -20,6 +21,7 @@
                 :resources-action
                 :resource-action)
   (:export ;; util
+           :*convert-intgral-slot-name-into-downcase*
            :singular-name-of
            :plural-name-of
 

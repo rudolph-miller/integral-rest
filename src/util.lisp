@@ -1,10 +1,14 @@
 (in-package :cl-user)
 (defpackage integral-rest.util
   (:use :cl
-        :integral))
+        :integral
+        :jonathan))
 (in-package :integral-rest.util)
 
 (syntax:use-syntax :annot)
+
+@export
+(defvar *convert-intgral-slot-name-into-downcase* t)
 
 @export
 (defun slot-initarg (slot)
@@ -29,3 +33,15 @@
 (defgeneric plural-name-of (table)
   (:method ((table <dao-table-class>))
     (cl-inflector:plural-of (singular-name-of table))))
+
+(defmethod %to-json ((obj <dao-class>))
+  (with-object
+    (loop for slot in (c2mop:class-direct-slots (class-of obj))
+          for name = (c2mop:slot-definition-name slot)
+          for key = (symbol-name name)
+          when (and (not (equal key "%SYNCED"))
+                    (slot-boundp obj name))
+            do (write-key-value (or (when *convert-intgral-slot-name-into-downcase*
+                                      (string-downcase key))
+                                    key)
+                                (slot-value obj name)))))

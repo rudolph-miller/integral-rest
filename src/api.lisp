@@ -41,7 +41,10 @@
       (let ((obj (apply #'find-dao table primary-values)))
         (loop for (key . val) in update-kvs
               do (setf (slot-value obj key) val))
-        (update-dao obj))))
+        (update-dao obj)
+        obj)))
 
   (:method ((table <dao-table-class>) (method (eql :delete)) &rest args)
-    (delete-dao (apply #'find-dao table args))))
+    (let ((obj (apply #'find-dao table args)))
+      (delete-dao obj)
+      obj)))
