@@ -23,7 +23,8 @@
                :ningle
                :closer-mop
                :jonathan
-               :cl-inflector)
+               :cl-inflector
+               :map-set)
   :components ((:module "src"
                 :components
                 ((:file "integral-rest" :depends-on ("route" "api" "util"))

@@ -24,9 +24,14 @@
 (defun get-value (key alist)
   (flet ((sub (key &key (test #'equal))
            (cdr (assoc key alist :test test))))
-    (or (sub key)
-        (when *params-case-insensitive-p*
-          (sub key :test #'string-equal)))))
+    (let ((result (or (sub key)
+                      (when *params-case-insensitive-p*
+                        (sub key :test #'string-equal)))))
+      (when result
+        (multiple-value-bind (int ind) (parse-integer result :junk-allowed t)
+          (if (= ind (length result))
+              int
+              result))))))
 
 @export
 (defgeneric api-path (table)
@@ -59,22 +64,28 @@
 (defun pk-action (fn table method)
   (let ((primary-key-names (mapcar #'symbol-name (table-primary-key table))))
     (lambda (params)
-      (to-json
-       (apply fn table method
-              (loop for name in primary-key-names
-                    collecting (get-value name params)))))))
+      (let ((result (apply fn table method
+                           (loop for name in primary-key-names
+                                 collecting (get-value name params)))))
+        (to-json
+         (if result
+             result
+             :null))))))
 
 (defun kv-action (fn table method)
   (let ((slots (c2mop:class-direct-slots table)))
     (lambda (params)
-      (to-json
-       (apply fn table method
-              (loop for slot in slots
-                    for initarg = (slot-initarg slot)
-                    for name = (c2mop:slot-definition-name slot)
-                    for value = (get-value name params)
-                    when value
-                      nconc (list initarg value)))))))
+      (let ((result (apply fn table method
+                           (loop for slot in slots
+                                 for initarg = (slot-initarg slot)
+                                 for name = (c2mop:slot-definition-name slot)
+                                 for value = (get-value name params)
+                                 when value
+                                   nconc (list initarg value)))))
+        (to-json
+         (if result
+             result
+             :null))))))
 
 @export
 (defgeneric resources-action (table method)
@@ -82,7 +93,7 @@
     (declare (ignore method))
     (lambda (params)
       (declare (ignore params))
-      (resources table :get)))
+      (to-json (resources table :get))))
 
   (:method ((table <dao-table-class>) (method (eql :post)))
     (kv-action #'resources table method)))

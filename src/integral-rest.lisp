@@ -1,8 +1,20 @@
 (in-package :cl-user)
 (defpackage integral-rest
   (:use :cl
-        :integral
-        :ningle)
+        :integral)
+  (:import-from :ningle
+                :route)
+  (:import-from :ningle.app
+                :mapper)
+  (:import-from :myway.mapper
+                :mapper-routes)
+  (:import-from :myway.route
+                :route-rule)
+  (:import-from :myway.rule
+                :rule-url
+                :rule-methods)
+  (:import-from :map-set
+                :ms-map)
   (:import-from :alexandria
                 :symbolicate)
   (:import-from :integral-rest.util
@@ -40,10 +52,13 @@
 
            ;; main
            :*rest-app*
-           :set-rest-app))
+           :set-rest-app
+           :routing-rules))
 (in-package :integral-rest)
 
-(defvar *rest-app*)
+(defclass <app> (ningle:<app>) ())
+
+(defvar *rest-app* (make-instance '<app>))
 
 (defun set-rest-app (&optional (tables (c2mop:class-direct-subclasses (find-class '<dao-class>))))
   (let ((app (make-instance '<app>)))
@@ -55,4 +70,13 @@
       (loop for table in tables
             do (set-routes resources '(:get :post))
                (set-routes resource '(:get :put :delete))))
-    (setf *rest-app* app)))
+    (setf (mapper *rest-app*)
+          (mapper app))
+    app))
+
+(defun routing-rules (&optional (app *rest-app*))
+  (loop for route in  (mapper-routes (mapper app))
+        for rule = (route-rule route)
+        for url = (rule-url rule)
+        for methods = (ms-map 'cons #'identity (rule-methods rule))
+        collecting (cons url methods)))
