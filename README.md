@@ -110,7 +110,7 @@
 
 (routing-rules *rest-app*)
 ;; => '(("/api/users" :GET) ("/api/users" :POST) ("/api/users/:id" :GET)
-        ("/api/users/:id" :PUT) ("/api/users/:id" :DELETE))
+;;      ("/api/users/:id" :PUT) ("/api/users/:id" :DELETE))
 ```
 
 - returns list of routing rules an instance of ningle:<app> has.
