@@ -11,6 +11,7 @@
 (defsystem integral-rest-test
   :author "Rudolph-Miller"
   :license "MIT"
+  :description "Tests of Integral-Rest."
   :depends-on (:integral-rest
                :prove
                :integral)
