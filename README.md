@@ -1,6 +1,7 @@
 # Integral-Rest - REST APIs for Integral DAO Table.
 
-[![Build Status](https://travis-ci.org/Rudolph-Miller/integral-rest.svg)](https://travis-ci.org/Rudolph-Miller/integral-rest)
+[![Build Status](https://circleci.com/gh/Rudolph-Miller/integral-rest.svg?style=shield)](https://circleci.com/gh/Rudolph-Miller/integral-rest)
+[![Quicklisp dist](http://quickdocs.org/badge/integral-rest.svg)](http://quickdocs.org/integral-rest/)
 
 ## Usage
 ```Lisp
