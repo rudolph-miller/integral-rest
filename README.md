@@ -44,7 +44,7 @@
 ;; (set-rest-app) can take list of class. (optional)
 ```
 
-- sets REST API app to *rest-app*.
+- sets REST API app to `*rest-app*`.
 - returns REST API app.
 - REST API app has these routing rules below.
   - `"/api/users" :GET`
@@ -113,7 +113,7 @@
 ;;      ("/api/users/:id" :PUT) ("/api/users/:id" :DELETE))
 ```
 
-- returns list of routing rules an instance of ningle:<app> has.
+- returns list of routing rules the app has.
 
 ## Author
 

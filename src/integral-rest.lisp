@@ -60,6 +60,8 @@
 
 (defvar *rest-app* (make-instance '<app>))
 
+@doc
+"sets REST API app to *rest-app* and returns REST API app."
 (defun set-rest-app (&optional (tables (c2mop:class-direct-subclasses (find-class '<dao-class>))))
   (let ((app (make-instance '<app>)))
     (macrolet ((set-routes (resource-or-resources methods)
@@ -74,6 +76,8 @@
           (mapper app))
     app))
 
+@doc
+"returns list of routing rules the app has."
 (defun routing-rules (&optional (app *rest-app*))
   (loop for route in  (mapper-routes (mapper app))
         for rule = (route-rule route)

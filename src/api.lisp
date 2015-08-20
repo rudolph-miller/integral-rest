@@ -1,6 +1,7 @@
 (in-package :cl-user)
 (defpackage integral-rest.api
   (:use :cl
+        :annot.doc
         :ningle
         :integral
         :integral-rest.util)
