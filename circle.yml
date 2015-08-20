@@ -22,8 +22,7 @@ dependencies:
     - git clone https://github.com/Rudolph-Miller/roswell-scripts ~/lisp/roswell-scripts
     - cd ~/lisp/roswell-scripts/roswell && ros install gendoc && ros install gh-pages
 
-    - git clone https://github.com/fukamachi/prove ~/lisp/prove
-    - ros -l ~/lisp/prove/prove.asd install prove
+    - ros -e "(ql:quickload :prove)"; ros install prove
 
   cache_directories:
     - ~/.roswell
