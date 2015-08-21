@@ -1,0 +1,90 @@
+@begin(section)
+@title(Overview)
+@link[uri=https://circleci.com/gh/Rudolph-Miller/integral-rest](@image[src="https://circleci.com/gh/Rudolph-Miller/integral-rest.svg"]())
+
+@link[uri=https://coveralls.io/repos/Rudolph-Miller/integral-rest](@image[src="https://coveralls.io/repos/Rudolph-Miller/integral-rest/badge.svg"]())
+@link[uri=http://quickdocs.org/integral-rest/](@image[src="http://quickdocs.org/badge/integral-rest.svg"]())
+@begin(section)
+@title(Description)
+REST APIs for Integral DAO Table.
+@end(section)
+@begin(section)
+@title(Examples)
+@begin(section)
+@title(usage)
+@code[lang=lisp](@include[path=../examples/usage.lisp]())
+@end(section)
+@end(section)
+@begin(section)
+@title(Author)
+@b(Rudolph-Miller)
+@end(section)
+@begin(section)
+@title(Licence)
+MIT
+@end(section)
+@end(section)
+; compiling file "/home/ubuntu/integral-rest/src/util.lisp" (written 21 AUG 2015 02:17:13 AM):
+; compiling (IN-PACKAGE :CL-USER)
+; compiling (DEFPACKAGE INTEGRAL-REST.UTIL ...)
+; compiling (IN-PACKAGE :INTEGRAL-REST.UTIL)
+; compiling (CL-SYNTAX:USE-SYNTAX :ANNOT)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (DEFMETHOD %TO-JSON ...)
+
+; /home/ubuntu/.cache/common-lisp/sbcl-1.2.14-linux-x64/1.2.14/home/ubuntu/integral-rest/src/util-TMP.fasl written
+; compilation finished in 0:00:00.065
+; compiling file "/home/ubuntu/integral-rest/src/api.lisp" (written 21 AUG 2015 02:17:13 AM):
+; compiling (IN-PACKAGE :CL-USER)
+; compiling (DEFPACKAGE INTEGRAL-REST.API ...)
+; compiling (IN-PACKAGE :INTEGRAL-REST.API)
+; compiling (CL-SYNTAX:USE-SYNTAX :ANNOT)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+
+; /home/ubuntu/.cache/common-lisp/sbcl-1.2.14-linux-x64/1.2.14/home/ubuntu/integral-rest/src/api-TMP.fasl written
+; compilation finished in 0:00:00.022
+; compiling file "/home/ubuntu/integral-rest/src/route.lisp" (written 21 AUG 2015 02:17:13 AM):
+; compiling (IN-PACKAGE :CL-USER)
+; compiling (DEFPACKAGE INTEGRAL-REST.ROUTE ...)
+; compiling (IN-PACKAGE :INTEGRAL-REST.ROUTE)
+; compiling (CL-SYNTAX:USE-SYNTAX :ANNOT)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (DEFUN GET-VALUE ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (DEFUN PK-ACTION ...)
+; compiling (DEFUN KV-ACTION ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+
+; /home/ubuntu/.cache/common-lisp/sbcl-1.2.14-linux-x64/1.2.14/home/ubuntu/integral-rest/src/route-TMP.fasl written
+; compilation finished in 0:00:00.089
+; compiling file "/home/ubuntu/integral-rest/src/integral-rest.lisp" (written 21 AUG 2015 02:17:13 AM):
+; compiling (IN-PACKAGE :CL-USER)
+; compiling (DEFPACKAGE INTEGRAL-REST ...)
+; compiling (IN-PACKAGE :INTEGRAL-REST)
+; compiling (CL-SYNTAX:USE-SYNTAX :ANNOT)
+; compiling (DEFCLASS <APP> ...)
+; compiling (DEFVAR *REST-APP* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION DOC ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION DOC ...)
+
+; /home/ubuntu/.cache/common-lisp/sbcl-1.2.14-linux-x64/1.2.14/home/ubuntu/integral-rest/src/integral-rest-TMP.fasl written
+; compilation finished in 0:00:00.015
+@begin(section)
+@title(Functions)
+@cl:with-package[name="integral-rest"](
+@cl:doc(function routing-rules)
+)
+@cl:with-package[name="integral-rest"](
+@cl:doc(function set-rest-app)
+)
+@end(section)

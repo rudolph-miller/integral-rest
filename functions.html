@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+  Functions &ndash; INTEGRAL-REST
+</title>
+    <link rel="stylesheet" href="static/style.css"/>
+    
+  <link rel="stylesheet" href="static/highlight.css"/>
+  <script src="static/highlight.js"></script>
+  <style>
+   /* Highlight the current top-level TOC item, and hide the TOC of all other items */
+
+   .toc a[data-node="functions"] {
+       color: #AD3108;
+   }
+
+   .toc ol {
+       display: none;
+   }
+
+   .toc > ol {
+       display: block;
+   }
+
+   .toc li a[data-node="functions"] + ol {
+       display: block;
+   }
+
+   .toc li a[data-node="functions"] + ol li {
+       font-size: 16px;
+       margin: 0 10px;
+   }
+
+   .toc li a[active] + ol li:first-child {
+       margin-top: 5px;
+   }
+  </style>
+
+  </head>
+  <body>
+    
+  <h1 class="doc-title">INTEGRAL-REST » Functions</h1>
+  <article id="article" data-section="functions">
+    <aside>
+      <ol class="toc"><li><a href="overview.html" data-node="overview">Overview</a><ol><li><a href="overview.html#description" data-node="description">Description</a></li><li><a href="overview.html#examples" data-node="examples">Examples</a><ol><li><a href="overview.html#usage" data-node="usage">usage</a></li></ol></li><li><a href="overview.html#author" data-node="author">Author</a></li><li><a href="overview.html#licence" data-node="licence">Licence</a></li></ol></li><li><a href="functions.html" data-node="functions">Functions</a></li></ol>
+    </aside>
+    <main class="codex-section">
+      <div class="codex-doc-node codex-operator codex-function"><code class="codex-name">routing-rules</code><code class="codex-lambda-list">(&amp;optional (app *rest-app*))</code><div class="codex-docstring">returns list of routing rules the app has.</div></div><div class="codex-doc-node codex-operator codex-function"><code class="codex-name">set-rest-app</code><code class="codex-lambda-list">(&amp;optional (tables (class-direct-subclasses (find-class (quote &lt;dao-class&gt;)))))</code><div class="codex-docstring">sets REST API app to *rest-app* and returns REST API app.</div></div>
+    </main>
+  </article>
+  <footer>
+    <div class="info">
+      Created with <a href="https://github.com/CommonDoc/codex">Codex</a>.
+    </div>
+  </footer>
+  <script>
+   HighlightLisp.highlight_auto();
+  </script>
+
+  </body>
+</html>

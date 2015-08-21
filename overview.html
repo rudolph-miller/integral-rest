@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+  Overview &ndash; INTEGRAL-REST
+</title>
+    <link rel="stylesheet" href="static/style.css"/>
+    
+  <link rel="stylesheet" href="static/highlight.css"/>
+  <script src="static/highlight.js"></script>
+  <style>
+   /* Highlight the current top-level TOC item, and hide the TOC of all other items */
+
+   .toc a[data-node="overview"] {
+       color: #AD3108;
+   }
+
+   .toc ol {
+       display: none;
+   }
+
+   .toc > ol {
+       display: block;
+   }
+
+   .toc li a[data-node="overview"] + ol {
+       display: block;
+   }
+
+   .toc li a[data-node="overview"] + ol li {
+       font-size: 16px;
+       margin: 0 10px;
+   }
+
+   .toc li a[active] + ol li:first-child {
+       margin-top: 5px;
+   }
+  </style>
+
+  </head>
+  <body>
+    
+  <h1 class="doc-title">INTEGRAL-REST » Overview</h1>
+  <article id="article" data-section="overview">
+    <aside>
+      <ol class="toc"><li><a href="overview.html" data-node="overview">Overview</a><ol><li><a href="overview.html#description" data-node="description">Description</a></li><li><a href="overview.html#examples" data-node="examples">Examples</a><ol><li><a href="overview.html#usage" data-node="usage">usage</a></li></ol></li><li><a href="overview.html#author" data-node="author">Author</a></li><li><a href="overview.html#licence" data-node="licence">Licence</a></li></ol></li><li><a href="functions.html" data-node="functions">Functions</a></li></ol>
+    </aside>
+    <main class="codex-section">
+      <a href="https://circleci.com/gh/Rudolph-Miller/integral-rest"><img src="https://circleci.com/gh/Rudolph-Miller/integral-rest.svg"/></a><a href="https://coveralls.io/repos/Rudolph-Miller/integral-rest"><img src="https://coveralls.io/repos/Rudolph-Miller/integral-rest/badge.svg"/></a><a href="http://quickdocs.org/integral-rest/"><img src="http://quickdocs.org/badge/integral-rest.svg"/></a><h1 id="description">Description</h1>
+REST APIs for Integral DAO Table.
+<h1 id="examples">Examples</h1><h2 id="usage">usage</h2><pre><code class="lisp">(defpackage sample
+  (:use :cl
+        :integral
+        :integral-rest))
+(in-package :sample)
+
+(connect-toplevel :sqlite3 :database-name &quot;:memory:&quot;)
+
+(defclass user ()
+  ((id :initarg :id
+       :type integer
+       :primary-key t
+       :accessor user-id)
+   (name :initarg :name
+         :type string
+         :accessor user-name))
+  (:metaclass integral:&lt;dao-table-class&gt;))
+
+(ensure-table-exists (find-class 'user))
+
+(set-rest-app)
+
+(clack:clackup *rest-app*)
+;; =&gt; Listening on localhost:5000.
+
+(create-dao 'user :name &quot;Rudolph&quot;)
+;; =&gt; #&lt;USER id: 1&gt;
+
+(dex:get &quot;http://localhost:5000/api/users&quot;)
+;; =&gt; &quot;[{\&quot;id\&quot;:1,\&quot;name\&quot;:\&quot;Rudolph\&quot;}]&quot;
+
+(dex:get &quot;http://localhost:5000/api/users/1&quot;)
+;; =&gt; &quot;{\&quot;id\&quot;:1,\&quot;name\&quot;:\&quot;Rudolph\&quot;}&quot;
+
+(dex:post &quot;http://localhost:5000/api/users&quot; :content '((&quot;name&quot; . &quot;Miller&quot;)))
+;; =&gt; &quot;{\&quot;id\&quot;:2,\&quot;name\&quot;:\&quot;Miller\&quot;}&quot;
+
+(find-dao 'user 2)
+;; =&gt; #&lt;USER id: 2 name: &quot;Miller&quot;&gt;
+
+(dex:put &quot;http://localhost:5000/api/users/2&quot; :content '((&quot;name&quot; . &quot;Tom&quot;)))
+;; =&gt; &quot;{\&quot;id\&quot;:2,\&quot;name\&quot;:\&quot;Tom\&quot;}&quot;
+
+(find-dao 'user 2)
+;; =&gt; #&lt;USER id: 2 name: &quot;Tom&quot;&gt;
+
+(dex:delete &quot;http://localhost:5000/api/users/2&quot;)
+;; =&gt; &quot;{\&quot;id\&quot;:2,\&quot;name\&quot;:\&quot;Tom\&quot;}&quot;
+
+(find-dao 'user 2)
+;; =&gt; NIL
+</code></pre><h1 id="author">Author</h1><b>Rudolph-Miller</b><h1 id="licence">Licence</h1>
+MIT
+
+    </main>
+  </article>
+  <footer>
+    <div class="info">
+      Created with <a href="https://github.com/CommonDoc/codex">Codex</a>.
+    </div>
+  </footer>
+  <script>
+   HighlightLisp.highlight_auto();
+  </script>
+
+  </body>
+</html>
