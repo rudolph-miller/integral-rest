@@ -1,6 +1,7 @@
 (in-package :cl-user)
 (defpackage integral-rest
   (:use :cl
+        :annot.doc
         :integral)
   (:import-from :ningle
                 :route)
@@ -55,6 +56,8 @@
            :set-rest-app
            :routing-rules))
 (in-package :integral-rest)
+
+(syntax:use-syntax :annot)
 
 (defclass <app> (ningle:<app>) ())
 
